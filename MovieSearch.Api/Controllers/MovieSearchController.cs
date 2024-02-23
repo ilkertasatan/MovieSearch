@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Mvc;
 
 namespace MovieSearch.Api.Controllers;
 
@@ -11,13 +12,14 @@ namespace MovieSearch.Api.Controllers;
 public class MovieSearchController : ControllerBase
 {
     /// <summary>
-    /// Search movie from external sources by movie title
+    /// Returns movie detail given by title
     /// </summary>
-    /// <param name="title"></param>
+    /// <param name="title">Movie Title</param>
     /// <returns></returns>
     [HttpGet("search")]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public IActionResult MovieSearchAsync([FromQuery] string title)
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public IActionResult MovieSearchAsync([FromQuery] [Required] string title)
     {
         return Ok();
     }
