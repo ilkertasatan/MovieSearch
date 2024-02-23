@@ -1,10 +1,10 @@
 namespace MovieSearch.Domain.ValueObjects;
 
-public readonly record struct Year
+public readonly record struct VideoUri
 {
     private readonly string _value;
     
-    public Year(string value)
+    public VideoUri(string value)
     {
         _value = value;
     }

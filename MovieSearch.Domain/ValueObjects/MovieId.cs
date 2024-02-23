@@ -1,12 +1,15 @@
 namespace MovieSearch.Domain.ValueObjects;
 
-public readonly record struct VideoUrl
+public readonly record struct MovieId
 {
     private readonly string _value;
-    public VideoUrl(string value)
+    
+    public MovieId(string value)
     {
         _value = value;
     }
+
+    public bool IsEmpty() => string.IsNullOrWhiteSpace(_value);
 
     public override string ToString()
     {

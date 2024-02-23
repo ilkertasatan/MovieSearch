@@ -1,8 +1,8 @@
-﻿using MovieSearch.Application.Common.Models;
+﻿using MovieSearch.Domain.Movies;
 
 namespace MovieSearch.Application.Common.Interfaces;
 
 public interface IOmDbApiService
 {
-    Task<MovieInfo> GetMovieInfoByAsync(string movieTitle);
+    Task<Movie> GetMovieInfoByAsync(string movieTitle);
 }

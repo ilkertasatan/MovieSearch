@@ -13,10 +13,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Vimeo\" />
-    </ItemGroup>
-
-    <ItemGroup>
       <ProjectReference Include="..\MovieSearch.Application\MovieSearch.Application.csproj" />
     </ItemGroup>
 

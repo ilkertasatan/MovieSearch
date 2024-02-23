@@ -3,16 +3,22 @@ namespace MovieSearch.Domain.ValueObjects;
 public readonly record struct Actor
 {
     private readonly string _value;
-    public Actor(string value)
+    
+    public static IEnumerable<Actor> Parse(string actors)
     {
-        if (string.IsNullOrWhiteSpace(value))
-            throw new ArgumentException("Actor cannot be empty.", nameof(value));
-
-        _value = value;
+        return actors.Split(",").Select(actor => new Actor(actor));
     }
 
     public override string ToString()
     {
         return _value;
+    }
+
+    private Actor(string value)
+    {
+        if (string.IsNullOrWhiteSpace(value))
+            throw new ArgumentException("Actor cannot be empty.", nameof(value));
+
+        _value = value;
     }
 }

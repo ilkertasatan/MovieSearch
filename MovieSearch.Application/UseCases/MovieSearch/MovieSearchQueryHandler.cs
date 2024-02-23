@@ -1,11 +1,21 @@
 using MediatR;
+using MovieSearch.Application.Common.Interfaces;
 
 namespace MovieSearch.Application.UseCases.MovieSearch;
 
-public sealed class MovieSearchQueryHandler : IRequestHandler<MovieSearchQuery, MovieSearchQueryResult>
+public sealed class MovieSearchQueryHandler(
+    IOmDbApiService omDbApiService,
+    IVimeoApiService vimeoApiService) : IRequestHandler<MovieSearchQuery, IQueryResult>
 {
-    public Task<MovieSearchQueryResult> Handle(MovieSearchQuery request, CancellationToken cancellationToken)
+    public async Task<IQueryResult> Handle(MovieSearchQuery request, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        var movie = await omDbApiService.GetMovieInfoByAsync(request.Title.ToString());
+        if (!movie.Exists())
+            return new MovieSearchQueryNotFoundResult();
+        
+        var videoUris = await vimeoApiService.GetMovieVideosByAsync(request.Title.ToString());
+        movie.AddVideoUris(videoUris);
+            
+        return new MovieSearchQuerySuccessResult(movie);
     }
 }

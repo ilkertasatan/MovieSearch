@@ -2,7 +2,8 @@
 using Flurl.Http;
 using Microsoft.Extensions.Options;
 using MovieSearch.Application.Common.Interfaces;
-using MovieSearch.Application.Common.Models;
+using MovieSearch.Domain.Movies;
+using MovieSearch.Domain.ValueObjects;
 using MovieSearch.Infrastructure.Helpers;
 
 namespace MovieSearch.Infrastructure.OmDb;
@@ -12,9 +13,9 @@ public sealed class OmDbApiService(IOptions<OmDbApiOptions> options) : IOmDbApiS
     private readonly string _apiUrl = options.Value.Url;
     private readonly string _apiKey = options.Value.ApiKey;
     
-    public async Task<MovieInfo> GetMovieInfoByAsync(string movieTitle)
+    public async Task<Movie> GetMovieInfoByAsync(string movieTitle)
     {
-        return await HttpRetryPolicy
+        var response = await HttpRetryPolicy
             .BuildRetryPolicy()
             .ExecuteAsync(() =>
                 _apiUrl
@@ -23,6 +24,17 @@ public sealed class OmDbApiService(IOptions<OmDbApiOptions> options) : IOmDbApiS
                         apikey = _apiKey,
                         t = movieTitle
                     })
-                    .GetJsonAsync<MovieInfo>());
+                    .GetJsonAsync<OmDbApiResponse>());
+
+        return Movie.New(
+            new MovieId(response.ImdbId),
+            new Title(response.Title),
+            new Year(response.Year),
+            Genre.Parse(response.Genre),
+            Director.Parse(response.Director),
+            Writer.Parse(response.Writer),
+            Actor.Parse(response.Actors),
+            new Plot(response.Plot),
+            Language.Parse(response.Languages));
     }
 }

@@ -3,16 +3,22 @@ namespace MovieSearch.Domain.ValueObjects;
 public readonly record struct Language
 {
     private readonly string _value;
-    public Language(string value)
+    
+    public static IEnumerable<Language> Parse(string languages)
     {
-        if (string.IsNullOrWhiteSpace(value))
-            throw new ArgumentException("Language cannot be empty.", nameof(value));
-
-        _value = value;
+        return languages.Split(",").Select(language => new Language(language));
     }
 
     public override string ToString()
     {
         return _value;
+    }
+
+    private Language(string value)
+    {
+        if (string.IsNullOrWhiteSpace(value))
+            throw new ArgumentException("Language cannot be empty.", nameof(value));
+
+        _value = value;
     }
 }

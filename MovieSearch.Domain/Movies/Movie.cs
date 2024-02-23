@@ -2,14 +2,16 @@
 
 namespace MovieSearch.Domain.Movies;
 
-public class Movie
+public class Movie : IMaybeExist
 {
     private readonly List<Genre> _genres = [];
     private readonly List<Director> _directors = [];
     private readonly List<Writer> _writers = [];
     private readonly List<Actor> _actors = [];
     private readonly List<Language> _languages = [];
-    private readonly List<VideoUrl> _videoUrls = [];
+    private readonly List<VideoUri> _videos = [];
+
+    public MovieId MovieId { get;}
     
     public Title Title { get; }
 
@@ -27,7 +29,59 @@ public class Movie
 
     public IReadOnlyCollection<Language> Languages => _languages;
 
-    public IReadOnlyCollection<VideoUrl> VideoUrls => _videoUrls;
+    public IReadOnlyCollection<VideoUri> Videos => _videos;
+
+    public static Movie New(
+        MovieId movieId,
+        Title title,
+        Year year,
+        IEnumerable<Genre> genres,
+        IEnumerable<Director> directors,
+        IEnumerable<Writer> writers,
+        IEnumerable<Actor> actors,
+        Plot plot,
+        IEnumerable<Language> languages)
+    {
+        return new Movie(
+            movieId,
+            title,
+            year,
+            genres,
+            directors,
+            writers,
+            actors,
+            plot,
+            languages);
+    }
     
-    private Movie() { }
+    public void AddVideoUris(IEnumerable<VideoUri> videoUris)
+    {
+        _videos.AddRange(videoUris);
+    }
+
+    public bool Exists()
+    {
+        return MovieId.IsEmpty();
+    }
+
+    private Movie(
+        MovieId movieId,
+        Title title,
+        Year year,
+        IEnumerable<Genre> genres,
+        IEnumerable<Director> directors,
+        IEnumerable<Writer> writers,
+        IEnumerable<Actor> actors,
+        Plot plot,
+        IEnumerable<Language> languages)
+    {
+        Title = title;
+        Year = year;
+        _genres.AddRange(genres);
+        _directors.AddRange(directors);
+        _writers.AddRange(writers);
+        _actors.AddRange(actors);
+        Plot = plot;
+        _languages.AddRange(languages);
+    }
 }
