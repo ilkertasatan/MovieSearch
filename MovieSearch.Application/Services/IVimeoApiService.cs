@@ -1,6 +1,6 @@
 ﻿using MovieSearch.Domain.ValueObjects;
 
-namespace MovieSearch.Application.Common.Interfaces;
+namespace MovieSearch.Application.Services;
 
 public interface IVimeoApiService
 {

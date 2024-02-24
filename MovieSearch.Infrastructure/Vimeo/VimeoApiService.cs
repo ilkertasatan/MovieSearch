@@ -1,7 +1,7 @@
 ﻿using Flurl;
 using Flurl.Http;
 using Microsoft.Extensions.Options;
-using MovieSearch.Application.Common.Interfaces;
+using MovieSearch.Application.Services;
 using MovieSearch.Domain.ValueObjects;
 using MovieSearch.Infrastructure.Helpers;
 

@@ -9,7 +9,7 @@ public class Movie : IMaybeExist
     private readonly List<Writer> _writers = [];
     private readonly List<Actor> _actors = [];
     private readonly List<Language> _languages = [];
-    private readonly List<VideoUri> _videos = [];
+    private readonly List<VideoUri> _videoUris = [];
 
     public MovieId MovieId { get;}
     
@@ -29,7 +29,7 @@ public class Movie : IMaybeExist
 
     public IReadOnlyCollection<Language> Languages => _languages;
 
-    public IReadOnlyCollection<VideoUri> Videos => _videos;
+    public IReadOnlyCollection<VideoUri> VideoUris => _videoUris;
 
     public static Movie New(
         MovieId movieId,
@@ -56,7 +56,7 @@ public class Movie : IMaybeExist
     
     public void AddVideoUris(IEnumerable<VideoUri> videoUris)
     {
-        _videos.AddRange(videoUris);
+        _videoUris.AddRange(videoUris);
     }
 
     public bool Exists()
