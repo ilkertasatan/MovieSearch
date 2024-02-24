@@ -24,7 +24,7 @@ public sealed class VimeoApiService(IOptions<VimeoApiOptions> options) : IVimeoA
                         query = movieTitle,
                         direction = "desc",
                         per_page = 10,
-                        fields = "uri"
+                        fields = "player_embed_url"
                     })
                     .GetJsonAsync<VimeoApiResponse>());
 
