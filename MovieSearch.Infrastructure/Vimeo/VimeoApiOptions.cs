@@ -1,7 +1,7 @@
 namespace MovieSearch.Infrastructure.Vimeo;
 
-public class VimeoApiOptions
+public sealed class VimeoApiOptions
 {
-    public string Url { get; set; }
-    public string ApiKey { get; set; }
+    public string ApiUrl { get; set; }
+    public string AccessToken { get; set; }
 }

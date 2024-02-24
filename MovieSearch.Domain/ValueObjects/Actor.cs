@@ -6,7 +6,7 @@ public readonly record struct Actor
     
     public static IEnumerable<Actor> Parse(string actors)
     {
-        return actors.Split(",").Select(actor => new Actor(actor));
+        return actors.Split(",").Select(actor => new Actor(actor.Trim()));
     }
 
     public override string ToString()

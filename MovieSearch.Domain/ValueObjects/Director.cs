@@ -6,7 +6,7 @@ public readonly record struct Director
 
     public static IEnumerable<Director> Parse(string directors)
     {
-        return directors.Split(",").Select(director => new Director(director));
+        return directors.Split(",").Select(director => new Director(director.Trim()));
     }
 
     public override string ToString()

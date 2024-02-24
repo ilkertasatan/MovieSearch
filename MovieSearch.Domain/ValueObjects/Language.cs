@@ -6,7 +6,7 @@ public readonly record struct Language
     
     public static IEnumerable<Language> Parse(string languages)
     {
-        return languages.Split(",").Select(language => new Language(language));
+        return languages.Split(",").Select(language => new Language(language.Trim()));
     }
 
     public override string ToString()

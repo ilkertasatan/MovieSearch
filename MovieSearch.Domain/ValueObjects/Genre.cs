@@ -6,7 +6,7 @@ public readonly record struct Genre
 
     public static IEnumerable<Genre> Parse(string genres)
     {
-        return genres.Split(",").Select(genre => new Genre(genre));
+        return genres.Split(",").Select(genre => new Genre(genre.Trim()));
     }
 
     public override string ToString()

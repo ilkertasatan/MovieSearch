@@ -11,6 +11,7 @@ public static class DependencyInjection
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
         return services
+            .AddMemoryCache()
             .AddServices(configuration);
     }
 
@@ -23,6 +24,7 @@ public static class DependencyInjection
         services.Decorate<IOmDbApiService, CachingOmDbApiService>();
         
         services.AddScoped<IVimeoApiService, VimeoApiService>();
+        services.Decorate<IVimeoApiService, CachingVimeoApiService>();
         
         return services;
     }

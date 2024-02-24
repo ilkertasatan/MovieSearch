@@ -10,10 +10,10 @@ namespace MovieSearch.Infrastructure.OmDb;
 
 public sealed class OmDbApiService(IOptions<OmDbApiOptions> options) : IOmDbApiService
 {
-    private readonly string _apiUrl = options.Value.Url;
+    private readonly string _apiUrl = options.Value.ApiUrl;
     private readonly string _apiKey = options.Value.ApiKey;
     
-    public async Task<Movie> GetMovieInfoByAsync(string movieTitle)
+    public async Task<Movie?> GetMovieInfoByAsync(string movieTitle)
     {
         var response = await HttpRetryPolicy
             .BuildRetryPolicy()
@@ -35,6 +35,6 @@ public sealed class OmDbApiService(IOptions<OmDbApiOptions> options) : IOmDbApiS
             Writer.Parse(response.Writer),
             Actor.Parse(response.Actors),
             new Plot(response.Plot),
-            Language.Parse(response.Languages));
+            Language.Parse(response.Language));
     }
 }

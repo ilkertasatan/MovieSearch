@@ -56,12 +56,13 @@ public class Movie : IMaybeExist
     
     public void AddVideoUris(IEnumerable<VideoUri> videoUris)
     {
+        _videoUris.Clear();
         _videoUris.AddRange(videoUris);
     }
 
     public bool Exists()
     {
-        return MovieId.IsEmpty();
+        return !MovieId.IsEmpty();
     }
 
     private Movie(
@@ -75,6 +76,7 @@ public class Movie : IMaybeExist
         Plot plot,
         IEnumerable<Language> languages)
     {
+        MovieId = movieId;
         Title = title;
         Year = year;
         _genres.AddRange(genres);

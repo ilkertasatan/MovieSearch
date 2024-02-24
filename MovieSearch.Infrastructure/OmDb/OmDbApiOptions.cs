@@ -1,7 +1,7 @@
 ﻿namespace MovieSearch.Infrastructure.OmDb;
 
-public class OmDbApiOptions
+public sealed class OmDbApiOptions
 {
-    public string Url { get; set; }
+    public string ApiUrl { get; set; }
     public string ApiKey { get; set; }
 }

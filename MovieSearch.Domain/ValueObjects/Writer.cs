@@ -6,7 +6,7 @@ public readonly record struct Writer
 
     public static IEnumerable<Writer> Parse(string writers)
     {
-        return writers.Split(",").Select(writer => new Writer(writer));
+        return writers.Split(",").Select(writer => new Writer(writer.Trim()));
     }
 
     public override string ToString()

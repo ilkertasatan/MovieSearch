@@ -1,5 +1,4 @@
-﻿using Flurl;
-using Flurl.Http;
+﻿using Flurl.Http;
 using Microsoft.Extensions.Options;
 using MovieSearch.Application.Services;
 using MovieSearch.Domain.ValueObjects;
@@ -9,19 +8,23 @@ namespace MovieSearch.Infrastructure.Vimeo;
 
 public sealed class VimeoApiService(IOptions<VimeoApiOptions> options) : IVimeoApiService
 {
-    private readonly string _apiUrl = options.Value.Url;
-    private readonly string _apiKey = options.Value.ApiKey;
-    
-    public async Task<IEnumerable<VideoUri>> GetMovieVideosByAsync(string movieTitle)
+    private readonly string _apiUrl = options.Value.ApiUrl;
+    private readonly string _accessToken = options.Value.AccessToken;
+
+    public async Task<IEnumerable<VideoUri>?> GetMovieVideosByAsync(string movieTitle)
     {
         var response = await HttpRetryPolicy
             .BuildRetryPolicy()
             .ExecuteAsync(() =>
                 _apiUrl
+                    .WithHeader("Accept", "application/vnd.vimeo.*+json;version=3.4")
+                    .WithHeader("Authorization", $"Bearer {_accessToken}")
                     .SetQueryParams(new
                     {
-                        apikey = _apiKey,
-                        t = movieTitle
+                        query = movieTitle,
+                        direction = "desc",
+                        per_page = 10,
+                        fields = "uri"
                     })
                     .GetJsonAsync<VimeoApiResponse>());
 

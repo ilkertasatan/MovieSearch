@@ -10,5 +10,5 @@ public sealed class OmDbApiResponse
     public string Writer { get; set; }
     public string Actors { get; set; }
     public string Plot { get; set; }
-    public string Languages { get; set; }
+    public string Language { get; set; }
 }
