@@ -1,20 +1,24 @@
+using MovieSearch.Api;
 using MovieSearch.Api.Extensions;
+using MovieSearch.Application;
+using MovieSearch.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
-
-var services = builder.Services;
-
-services
-    .AddApiControllers()
-    .AddVersioning()
-    .AddSwagger();
+{
+    builder.Services
+        .AddPresentation()
+        .AddApplication()
+        .AddInfrastructure(builder.Configuration);
+}
 
 var app = builder.Build();
+{
+    app.UseSwaggerDocumentation();
+    
+    app.UseAuthorization();
+    app.MapControllers();
 
-app.UseSwaggerDocumentation();
+    app.Run();
+}
 
-app.UseHttpsRedirection();
-app.UseAuthorization();
-app.MapControllers();
 
-app.Run();

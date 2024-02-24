@@ -4,5 +4,5 @@ namespace MovieSearch.Application.Services;
 
 public interface IOmDbApiService
 {
-    Task<Movie> GetMovieInfoByAsync(string movieTitle);
+    Task<Movie?> GetMovieInfoByAsync(string movieTitle);
 }
