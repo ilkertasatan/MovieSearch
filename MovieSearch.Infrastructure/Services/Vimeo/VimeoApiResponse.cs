@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace MovieSearch.Infrastructure.Vimeo;
+namespace MovieSearch.Infrastructure.Services.Vimeo;
 
 public class VimeoApiResponse
 {

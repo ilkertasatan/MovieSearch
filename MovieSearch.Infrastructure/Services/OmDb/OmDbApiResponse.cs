@@ -1,4 +1,4 @@
-﻿namespace MovieSearch.Infrastructure.OmDb;
+﻿namespace MovieSearch.Infrastructure.Services.OmDb;
 
 public sealed class OmDbApiResponse
 {

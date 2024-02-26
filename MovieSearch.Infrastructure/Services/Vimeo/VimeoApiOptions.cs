@@ -1,4 +1,4 @@
-namespace MovieSearch.Infrastructure.Vimeo;
+namespace MovieSearch.Infrastructure.Services.Vimeo;
 
 public sealed class VimeoApiOptions
 {

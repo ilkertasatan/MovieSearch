@@ -4,5 +4,5 @@ namespace MovieSearch.Application.Services;
 
 public interface IVimeoApiService
 {
-    Task<IEnumerable<VideoUri>?> GetMovieVideosByAsync(string movieTitle);
+    Task<IList<VideoUri>?> GetMovieVideosByAsync(string movieTitle);
 }

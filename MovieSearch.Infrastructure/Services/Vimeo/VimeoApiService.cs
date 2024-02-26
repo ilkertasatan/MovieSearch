@@ -4,14 +4,14 @@ using MovieSearch.Application.Services;
 using MovieSearch.Domain.ValueObjects;
 using MovieSearch.Infrastructure.Helpers;
 
-namespace MovieSearch.Infrastructure.Vimeo;
+namespace MovieSearch.Infrastructure.Services.Vimeo;
 
 public sealed class VimeoApiService(IOptions<VimeoApiOptions> options) : IVimeoApiService
 {
     private readonly string _apiUrl = options.Value.ApiUrl;
     private readonly string _accessToken = options.Value.AccessToken;
 
-    public async Task<IEnumerable<VideoUri>?> GetMovieVideosByAsync(string movieTitle)
+    public async Task<IList<VideoUri>?> GetMovieVideosByAsync(string movieTitle)
     {
         var response = await HttpRetryPolicy
             .BuildRetryPolicy()
@@ -28,6 +28,6 @@ public sealed class VimeoApiService(IOptions<VimeoApiOptions> options) : IVimeoA
                     })
                     .GetJsonAsync<VimeoApiResponse>());
 
-        return response.Data.Select(video => new VideoUri(video.Uri));
+        return response.Data.Select(video => new VideoUri(video.Uri)).ToList();
     }
 }
